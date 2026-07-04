@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Have a Question for You! 💌</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            text-align: center;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 90%;
+            transition: all 0.3s ease;
+        }
+        h1 {
+            color: #ff477e;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        .gif-container {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            height: 50px;
+        }
+        button {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+        #yes-btn {
+            background-color: #ff477e;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 71, 126, 0.4);
+        }
+        #yes-btn:hover {
+            transform: scale(1.05);
+            background-color: #ff5c8a;
+        }
+        #no-btn {
+            background-color: #e9ecef;
+            color: #495057;
+            position: absolute;
+        }
+        /* Success Screen Overrides */
+        .celebrate h1 {
+            color: #2a9d8f;
+        }
+        .celebrate #yes-btn, .celebrate #no-btn {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="main-card">
+        <!-- You can replace this emoji with an actual image link or GIF if desired -->
+        <div class="gif-container" id="display-emoji">👉👈</div>
+        <h1 id="question-text">Will you go out on a date with me Sunflower?</h1>
+        <p id="sub-text">It will be filled with good food, terrible jokes, and great company!</p>
+        
+        <div class="btn-group">
+            <button id="yes-btn" onclick="acceptDate()">Yes!</button>
+            <button id="no-btn" onmouseover="moveNoButton()" onclick="moveNoButton()">No</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        const card = document.getElementById('main-card');
+        const emoji = document.getElementById('display-emoji');
+        const questionText = document.getElementById('question-text');
+        const subText = document.getElementById('sub-text');
+
+        // Initially align the "No" button dynamically to the right side of the gap
+        window.onload = () => {
+            noBtn.style.left = 'calc(50% + 10px)';
+            yesBtn.style.transform = 'translateX(-70px)';
+        };
+
+        // Makes the No button jump away when hovered or clicked
+        function moveNoButton() {
+            // Generate a random position within the viewport bounds
+            const padding = 50;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+            const randomX = Math.floor(Math.random() * (maxX - padding)) + padding;
+            const randomY = Math.floor(Math.random() * (maxY - padding)) + padding;
+
+            // Switch to absolute positioning relative to body once interacted with
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        // Action when they click "Yes!"
+        function acceptDate() {
+            card.classList.add('celebrate');
+            emoji.innerHTML = '🎉🥳';
+            questionText.innerHTML = "It's a date! ❤️";
+            subText.innerHTML = "Yay! Prebooking Tesla for Dahej😬, sorry! Dont cancel🥲!!";
+            noBtn.style.display = 'none';
+            yesBtn.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
